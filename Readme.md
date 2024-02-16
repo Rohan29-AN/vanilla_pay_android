@@ -1,4 +1,5 @@
 
+
 # Vanilla Pay International Android Library
 
 By using this module, the developer can integrate Vanilla Pay International's payment service into Android apps.
@@ -35,23 +36,23 @@ To integrate the VanillaPayInternational Android Library into your Android proje
 
 1. Add the library to your project's dependencies.
 > Step 1. Add it in your root build.gradle at the end of repositories:
-```gradle
-allprojects {
+```gradle  
+dependencyResolutionManagement {
+		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 		repositories {
-			...
-			maven { url 'https://jitpack.io' }
+			mavenCentral()
+			maven { url 'https://www.jitpack.io' }
 		}
-	}
-
-```
+	} 
+```  
 
 > Step 2. Add the dependency
 
-```gradle
+```gradle  
  dependencies {
-	         implementation 'com.github.Rohan29-AN:vanilla_pay_international:0.9'
+	        implementation 'com.github.Rohan29-AN:vanilla_pay_android:1.0.0'
 	}
-````
+````  
 
 2. Ensure that your project meets the requirements mentioned above.
 3. Obtain VanillaPayInternational API credentials (client ID, client secret, key secret) from the VanillaPayInternational dashboard.
@@ -62,58 +63,49 @@ allprojects {
 
 To use the VanillaPayInternational library, initialize it with your VanillaPayInternational API credentials:
 
-```java
-VanillaPayInternational vanillaPayInternational = new VanillaPayInternational(clientId, clientSecret, keySecret, vpiVersion);
-```
+```java  
+VanillaPayInternational vanillaPayInternational = new VanillaPayInternational(clientId, clientSecret, keySecret, vpiVersion);  
+```  
 
 ### Generating Tokens
 
 Use the `generateToken()` method to generate a token, which remains valid for 20 minutes:
 
-```java
-CompletableFuture<TokenResponse> tokenFuture = vanillaPayInternational.generateToken();
-tokenFuture.thenAccept(token -> {
-    // Token generation successful
-}).exceptionally(exception -> {
-    // Token generation failed
-    return null;
-});
-```
+```java  
+CompletableFuture<TokenResponse> tokenFuture = vanillaPayInternational.generateToken();  
+tokenFuture.thenAccept(token -> {  
+ // Token generation successful}).exceptionally(exception -> {  
+ // Token generation failed return null;});  
+```  
 
 ### Initiating Payment
 
 Initiate a payment process using the `initPayment()` method:
 
-```java
-CompletableFuture<InitPayementResponse> initPaymentFuture = vanillaPayInternational.initPayement(token, montant, reference, panier, notifUrl, redirectUrl);
-initPaymentFuture.thenAccept(response -> {
-    // Payment initialization successful
-}).exceptionally(exception -> {
-    // Payment initialization failed
-    return null;
-});
-```
+```java  
+CompletableFuture<InitPayementResponse> initPaymentFuture = vanillaPayInternational.initPayement(token, montant, reference, panier, notifUrl, redirectUrl);  
+initPaymentFuture.thenAccept(response -> {  
+ // Payment initialization successful}).exceptionally(exception -> {  
+ // Payment initialization failed return null;});  
+```  
 
 ### Retrieving Transaction Status
 
 Retrieve the status of a transaction using the `getTransactionsStatus()` method:
 
-```java
-CompletableFuture<TransactionsStatusResponse> statusFuture = vanillaPayInternational.getTransactionsStatus(token, paymentLink);
-statusFuture.thenAccept(status -> {
-    // Transaction status retrieved successfully
-}).exceptionally(exception -> {
-    // Failed to retrieve transaction status
-    return null;
-});
-```
+```java  
+CompletableFuture<TransactionsStatusResponse> statusFuture = vanillaPayInternational.getTransactionsStatus(token, paymentLink);  
+statusFuture.thenAccept(status -> {  
+ // Transaction status retrieved successfully}).exceptionally(exception -> {  
+ // Failed to retrieve transaction status return null;});  
+```  
 
 ### Data Authenticity Validation
 
 Validate the authenticity of provided data using the `validateDataAuthenticity()` method:
 
-```java
-Boolean isDataAuthentic = vanillaPayInternational.validateDataAuthenticity(vpi_signature, body);
-```
-
+```java  
+Boolean isDataAuthentic = vanillaPayInternational.validateDataAuthenticity(vpi_signature, body);  
+```  
 ---
+**Copyright**   © 2024  Vanilla Pay. All rights reserved.  
