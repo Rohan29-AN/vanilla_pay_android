@@ -72,36 +72,59 @@ VanillaPayInternational vanillaPayInternational = new VanillaPayInternational(cl
 Use the `generateToken()` method to generate a token, which remains valid for 20 minutes:
 
 ```java  
-CompletableFuture<TokenResponse> tokenFuture = vanillaPayInternational.generateToken();  
-tokenFuture.thenAccept(token -> {  
+vanillaPayInternational.generateToken().thenAccept(token -> {  
  // Token generation successful
+    token=response .getData().getToken()
  }).exceptionally(exception -> {  
  // Token generation failed 
  return null;
  });  
 ```  
 
+Response (token):
+```json
+{
+    "CodeRetour": 200,
+    "DescRetour": "Génération TOKEN.",
+    "DetailRetour": "",
+    "Data": {
+    	"Token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImMzNDJhNWUxZTViZWI3NDIzZjk0OGZiYWJiMzZiYzY4ZDJlYzk4ZTNkNTY0ZjNmODU1ODEzMjBlNGY0MjM1NjIiLCJjbGllbnRTRUNSRVQiOiJkZWMxNGZkYTg3ZTVlOTIyOTNjM2M0NzY2Yzk2MjQyODk4MmY1Njg2NWI0MGEzMTNhMDBkMGJmNzJlZWUwZDQxIiwiZGF0ZUV4cGlyYXRpb24iOiIyMDIzLTEyLTIwVDA5OjA5OjM1LjIyMFoiLCJpYXQiOjE3MDMwNjIxNzV9.nb4qp0EYzCISHj9X3q_h9uKt-Qy3m3_DKmltytOINO8"
+ 	}
+}
+```
+
+
 ### Initiating Payment
 
 Initiate a payment process using the `initPayment()` method:
 
 ```java  
-vanillaPayInternational.initPayement(token, montant, reference, panier, notifUrl, redirectUrl);  
-initPaymentFuture.thenAccept(response -> {  
+vanillaPayInternational.initPayement(token, montant, reference, panier, notifUrl, redirectUrl).thenAccept(initPayementResponse -> {  
  // Payment initialization successful
-	 token=response .getData().getToken()
+	 linkPayment=initPayementResponse.getData().getUrl();
  }).exceptionally(exception -> {  
  // Payment initialization failed return null;
  });  
 ```  
+
+Response (initPayementResponse):
+```json
+{
+    "CodeRetour": 200,
+    "DescRetour": "Génération lien de paiement.",
+    "DetailRetour": "",
+    "Data": {
+        "url": "https://bo.vanilla-pay.net/webpayment?id=eyJhbGciOiJIUzI1NiJ9.VlBJMjMxMjIxMTA1MjUzOTQ.MThKzznZYh6x9gLoCEt6-c5zED62KXmBjitbp5_dmQE"
+    }
+}
+```
 
 ### Retrieving Transaction Status
 
 Retrieve the status of a transaction using the `getTransactionsStatus()` method:
 
 ```java  
-vanillaPayInternational.getTransactionsStatus(token, paymentLink);  
-statusFuture.thenAccept(status -> {  
+vanillaPayInternational.getTransactionsStatus(token, paymentLink).thenAccept(status -> {  
  // Transaction status retrieved successfully
 	 linkPayment=initPayementResponse.getData().getUrl();
  }).exceptionally(exception -> {  
@@ -109,6 +132,22 @@ statusFuture.thenAccept(status -> {
   return null;
   });  
 ```  
+
+Response (status):
+```json
+{
+    "CodeRetour": 200,
+    "DescRetour": 'Transaction status.',
+    "DetailRetour": '',
+    "Data": {
+        "reference_VPI": "VPI23011201010101",
+	    "panier" : "panier123",
+        "reference": "ABC-1234",
+        "montant": 58.5,
+        "etat": "SUCCESS"
+    }
+}
+```
 
 ### Data Authenticity Validation
 
