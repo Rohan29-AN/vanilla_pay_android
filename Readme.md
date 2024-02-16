@@ -50,7 +50,7 @@ dependencyResolutionManagement {
 
 ```gradle  
  dependencies {
-	        implementation 'com.github.Rohan29-AN:vanilla_pay_android:1.0.1'
+	        implementation 'com.github.Rohan29-AN:vanilla_pay_android:1.0.0'
 	}
 ````  
 
@@ -86,9 +86,10 @@ tokenFuture.thenAccept(token -> {
 Initiate a payment process using the `initPayment()` method:
 
 ```java  
-CompletableFuture<InitPayementResponse> initPaymentFuture = vanillaPayInternational.initPayement(token, montant, reference, panier, notifUrl, redirectUrl);  
+vanillaPayInternational.initPayement(token, montant, reference, panier, notifUrl, redirectUrl);  
 initPaymentFuture.thenAccept(response -> {  
  // Payment initialization successful
+	 token=response .getData().getToken()
  }).exceptionally(exception -> {  
  // Payment initialization failed return null;
  });  
@@ -99,9 +100,10 @@ initPaymentFuture.thenAccept(response -> {
 Retrieve the status of a transaction using the `getTransactionsStatus()` method:
 
 ```java  
-CompletableFuture<TransactionsStatusResponse> statusFuture = vanillaPayInternational.getTransactionsStatus(token, paymentLink);  
+vanillaPayInternational.getTransactionsStatus(token, paymentLink);  
 statusFuture.thenAccept(status -> {  
  // Transaction status retrieved successfully
+	 linkPayment=initPayementResponse.getData().getUrl();
  }).exceptionally(exception -> {  
  // Failed to retrieve transaction status
   return null;
