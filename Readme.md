@@ -74,8 +74,11 @@ Use the `generateToken()` method to generate a token, which remains valid for 20
 ```java  
 CompletableFuture<TokenResponse> tokenFuture = vanillaPayInternational.generateToken();  
 tokenFuture.thenAccept(token -> {  
- // Token generation successful}).exceptionally(exception -> {  
- // Token generation failed return null;});  
+ // Token generation successful
+ }).exceptionally(exception -> {  
+ // Token generation failed 
+ return null;
+ });  
 ```  
 
 ### Initiating Payment
@@ -85,8 +88,10 @@ Initiate a payment process using the `initPayment()` method:
 ```java  
 CompletableFuture<InitPayementResponse> initPaymentFuture = vanillaPayInternational.initPayement(token, montant, reference, panier, notifUrl, redirectUrl);  
 initPaymentFuture.thenAccept(response -> {  
- // Payment initialization successful}).exceptionally(exception -> {  
- // Payment initialization failed return null;});  
+ // Payment initialization successful
+ }).exceptionally(exception -> {  
+ // Payment initialization failed return null;
+ });  
 ```  
 
 ### Retrieving Transaction Status
@@ -96,8 +101,11 @@ Retrieve the status of a transaction using the `getTransactionsStatus()` method:
 ```java  
 CompletableFuture<TransactionsStatusResponse> statusFuture = vanillaPayInternational.getTransactionsStatus(token, paymentLink);  
 statusFuture.thenAccept(status -> {  
- // Transaction status retrieved successfully}).exceptionally(exception -> {  
- // Failed to retrieve transaction status return null;});  
+ // Transaction status retrieved successfully
+ }).exceptionally(exception -> {  
+ // Failed to retrieve transaction status
+  return null;
+  });  
 ```  
 
 ### Data Authenticity Validation
