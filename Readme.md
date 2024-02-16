@@ -88,7 +88,7 @@ Response (token):
     "DescRetour": "Génération TOKEN.",
     "DetailRetour": "",
     "Data": {
-    	"Token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImMzNDJhNWUxZTViZWI3NDIzZjk0OGZiYWJiMzZiYzY4ZDJlYzk4ZTNkNTY0ZjNmODU1ODEzMjBlNGY0MjM1NjIiLCJjbGllbnRTRUNSRVQiOiJkZWMxNGZkYTg3ZTVlOTIyOTNjM2M0NzY2Yzk2MjQyODk4MmY1Njg2NWI0MGEzMTNhMDBkMGJmNzJlZWUwZDQxIiwiZGF0ZUV4cGlyYXRpb24iOiIyMDIzLTEyLTIwVDA5OjA5OjM1LjIyMFoiLCJpYXQiOjE3MDMwNjIxNzV9.nb4qp0EYzCISHj9X3q_h9uKt-Qy3m3_DKmltytOINO8"
+    	"Token": "Bearer <token>"
  	}
 }
 ```
@@ -114,7 +114,7 @@ Response (initPayementResponse):
     "DescRetour": "Génération lien de paiement.",
     "DetailRetour": "",
     "Data": {
-        "url": "https://bo.vanilla-pay.net/webpayment?id=eyJhbGciOiJIUzI1NiJ9.VlBJMjMxMjIxMTA1MjUzOTQ.MThKzznZYh6x9gLoCEt6-c5zED62KXmBjitbp5_dmQE"
+        "url": "https://link.com"
     }
 }
 ```
@@ -137,8 +137,8 @@ Response (status):
 ```json
 {
     "CodeRetour": 200,
-    "DescRetour": 'Transaction status.',
-    "DetailRetour": '',
+    "DescRetour": "Transaction status.",
+    "DetailRetour": "",
     "Data": {
         "reference_VPI": "VPI23011201010101",
 	    "panier" : "panier123",
