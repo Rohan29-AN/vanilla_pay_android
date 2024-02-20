@@ -98,8 +98,16 @@ Response (token):
 
 Initiate a payment process using the `initPayment()` method:
 
+- `token`: The generated token.
+- `montant`: The amount of the transaction.
+- `devise`: The currency of the transaction.
+- `reference`: The pro external reference.
+- `panier`: The identifier for the transaction.
+- `notifUrl`: URL called when the payment is finished.
+- `redirectUrl`: URL to redirect the customer after completing the payment.
+
 ```java  
-vanillaPayInternational.initPayement(token, montant,devise, reference, panier, notifUrl, redirectUrl).thenAccept(initPayementResponse -> {  
+vanillaPayInternational.initPayement(token, montant, devise, reference, panier, notifUrl, redirectUrl).thenAccept(initPayementResponse -> {  
  // Payment initialization successful
 	 linkPayment=initPayementResponse.getData().getUrl();
  }).exceptionally(exception -> {  
@@ -122,6 +130,10 @@ Response (initPayementResponse):
 ### Retrieving Transaction Status
 
 Retrieve the status of a transaction using the `getTransactionsStatus()` method:
+
+- `token`: The generated token.
+- `paymentLink`: The payment link.
+
 
 ```java  
 vanillaPayInternational.getTransactionsStatus(token, paymentLink).thenAccept(status -> {  
@@ -152,6 +164,9 @@ Response (status):
 ### Data Authenticity Validation
 
 Validate the authenticity of provided data using the `validateDataAuthenticity()` method:
+
+- `vpi_signature`: The signature extracted from the headers.
+- `body`: The data to be hashed and compared against the signature.
 
 ```java  
 Boolean isDataAuthentic = vanillaPayInternational.validateDataAuthenticity(vpi_signature, body);  
