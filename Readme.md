@@ -99,7 +99,7 @@ Response (token):
 Initiate a payment process using the `initPayment()` method:
 
 ```java  
-vanillaPayInternational.initPayement(token, montant, reference, panier, notifUrl, redirectUrl).thenAccept(initPayementResponse -> {  
+vanillaPayInternational.initPayement(token, montant,devise, reference, panier, notifUrl, redirectUrl).thenAccept(initPayementResponse -> {  
  // Payment initialization successful
 	 linkPayment=initPayementResponse.getData().getUrl();
  }).exceptionally(exception -> {  
