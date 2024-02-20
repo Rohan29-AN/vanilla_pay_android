@@ -7,6 +7,11 @@ public class InitPaymentBody {
     @SerializedName("montant")
     @Expose
     private Double montant;
+
+    @SerializedName("devise")
+    @Expose
+    private String devise;
+
     @SerializedName("reference")
     @Expose
     private String reference;
@@ -58,5 +63,13 @@ public class InitPaymentBody {
 
     public void setRedirectUrl(String redirectUrl) {
         this.redirectUrl = redirectUrl;
+    }
+
+    public String getDevise() {
+        return devise;
+    }
+
+    public void setDevise(String devise) {
+        this.devise = devise;
     }
 }

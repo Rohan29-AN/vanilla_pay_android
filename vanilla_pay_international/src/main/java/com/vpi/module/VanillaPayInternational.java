@@ -61,6 +61,7 @@ public class VanillaPayInternational implements paymentContract.Presenter{
      *
      * @param token       The generated token used for authentication and authorization
      * @param montant      The amount of the transaction
+     * @param devise      The currency of the transaction
      * @param reference   The external reference associated with the transaction
      * @param panier       the identifier for the transaction
      * @param notifUrl    The URL to be called when the payment is finished
@@ -68,7 +69,7 @@ public class VanillaPayInternational implements paymentContract.Presenter{
      * @return CompletableFuture<InitPayementResponse> A CompletableFuture that will be completed with the response of the payment initialization or an exception if initialization fails.
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public CompletableFuture<InitPayementResponse> initPayement(String token, Double montant, String reference, String panier, String notifUrl, String redirectUrl) {
+    public CompletableFuture<InitPayementResponse> initPayement(String token, Double montant,String devise, String reference, String panier, String notifUrl, String redirectUrl) {
         CompletableFuture<InitPayementResponse> future = new CompletableFuture<>();
         InitPaymentBody body=new InitPaymentBody();
         body.setMontant(montant);
@@ -76,6 +77,7 @@ public class VanillaPayInternational implements paymentContract.Presenter{
         body.setPanier(panier);
         body.setNotifUrl(notifUrl);
         body.setRedirectUrl(redirectUrl);
+        body.setDevise(devise);
 
         this.vanillaService.initializePayment(new OnInitPaymentListener() {
             @Override
