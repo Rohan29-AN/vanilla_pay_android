@@ -50,7 +50,7 @@ dependencyResolutionManagement {
 
 ```gradle  
  dependencies {
-	        implementation 'com.github.Rohan29-AN:vanilla_pay_android:1.0.1'
+	        implementation 'com.github.Rohan29-AN:vanilla_pay_android:1.0.2'
 	}
 ````  
 
