@@ -64,7 +64,8 @@ dependencyResolutionManagement {
 To use the VanillaPayInternational library, initialize it with your VanillaPayInternational API credentials:
 
 ```java  
-VanillaPayInternational vanillaPayInternational = new VanillaPayInternational(clientId, clientSecret, keySecret, vpiVersion);  
+//env: 'PROD' or 'PREPROD' 
+VanillaPayInternational vanillaPayInternational = new VanillaPayInternational(clientId, clientSecret, keySecret, vpiVersion,env);  
 ```  
 
 ### Generating Tokens
@@ -155,7 +156,7 @@ Response (status):
         "reference_VPI": "VPI23011201010101",
 	    "panier" : "panier123",
         "reference": "ABC-1234",
-        "montant": 58.5,
+        "remarquee": "BLABLA",
         "etat": "SUCCESS"
     }
 }
