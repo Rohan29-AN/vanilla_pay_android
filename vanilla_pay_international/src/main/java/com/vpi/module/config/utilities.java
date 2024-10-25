@@ -12,12 +12,29 @@ import javax.crypto.spec.SecretKeySpec;
 public class utilities {
 
     /**
+     * Returns the base URL based on the specified environment.
+     *
+     * @param env A string that specifies the environment.
+     *            Valid values are "PROD" for production or "PREPROD" for pre-production.
+     * @return The base URL corresponding to the specified environment.
+     * Returns {@code config.BASE_URL} if the environment is "PROD",
+     * or {@code config.PREPROD_URL} if the environment is "PREPROD".
+     * If the input does not match either value, the method may return null or
+     * an undefined behavior (consider handling this case).
+     */
+    public static String getBaseUrl(String env) {
+        return (env.equals("PROD")) ? config.BASE_URL : config.PREPROD_URL;
+    }
+
+
+    /**
      * Hashes the payload using SHA256 algorithm and a secret key.
+     *
      * @param {string} secret - The secret key used for hashing.
      * @param {string} payload - The value to be hashed.
      * @returns {string} - The hashed value.
      */
-    public static String hashData(String secret,String payload){
+    public static String hashData(String secret, String payload) {
         try {
             Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
             SecretKeySpec secret_key = new SecretKeySpec(secret.getBytes(), "HmacSHA256");
@@ -35,8 +52,8 @@ public class utilities {
     }
 
 
-    public static String getIdFromLink(String url){
-        String idValue="";
+    public static String getIdFromLink(String url) {
+        String idValue = "";
         try {
             URI uri = new URI(url);
             // get the query part of the URL
@@ -48,14 +65,14 @@ public class utilities {
                     // split each parameter by '=' to get the key-value pair
                     String[] keyValue = param.split("=");
                     if (keyValue.length == 2 && keyValue[0].equals("id")) {
-                         idValue = keyValue[1];
+                        idValue = keyValue[1];
                     }
                 }
             }
             return idValue;
         } catch (URISyntaxException e) {
             e.printStackTrace();
-            return  null;
+            return null;
         }
     }
 }

@@ -62,9 +62,9 @@ public class TransactionsStatusResponse {
         @SerializedName("reference")
         @Expose
         private String reference;
-        @SerializedName("montant")
+        @SerializedName("remarque")
         @Expose
-        private Double montant;
+        private String remarque;
         @SerializedName("etat")
         @Expose
         private String etat;
@@ -93,12 +93,12 @@ public class TransactionsStatusResponse {
             this.reference = reference;
         }
 
-        public Double getMontant() {
-            return montant;
+        public String getRemarque() {
+            return remarque;
         }
 
-        public void setMontant(Double montant) {
-            this.montant = montant;
+        public void setRemarque(String remarque) {
+            this.remarque = remarque;
         }
 
         public String getEtat() {

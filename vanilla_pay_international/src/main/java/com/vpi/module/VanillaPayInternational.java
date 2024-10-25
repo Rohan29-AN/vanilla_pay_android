@@ -23,12 +23,12 @@ public class VanillaPayInternational implements paymentContract.Presenter{
     private paymentContract.Model vanillaService;
 
 
-    public VanillaPayInternational(String clientId, String clientSecret, String keySecret, String vpiVersion) {
+    public VanillaPayInternational(String clientId, String clientSecret, String keySecret, String vpiVersion,String env) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.keySecret = keySecret;
         this.vpiVersion = vpiVersion;
-        this.vanillaService=new payment_service();
+        this.vanillaService=new payment_service(env);
     }
 
     /**

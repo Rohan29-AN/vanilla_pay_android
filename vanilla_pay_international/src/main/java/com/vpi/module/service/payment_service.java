@@ -18,13 +18,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class payment_service implements paymentContract.Model{
+public class payment_service implements paymentContract.Model {
+    String env = "";
 
-    APIInterface apiService = APIClient.getClient().create(APIInterface.class);
+    public payment_service(String env) {
+        //Set env to "PROD" if it is null or empty
+        this.env = env == null || env.isEmpty() ? "PROD" : env;
+    }
+
+    APIInterface apiService = APIClient.getClient(this.env).create(APIInterface.class);
 
     @Override
     public void generateToken(paymentContract.Presenter.OnTokenGeneratedListener listener, String clientId, String clientSecret, String vpiVersion) {
-        Call<TokenResponse> call=this.apiService.getToken(clientId,clientSecret,vpiVersion);
+        Call<TokenResponse> call = this.apiService.getToken(clientId, clientSecret, vpiVersion);
         call.enqueue(new Callback<TokenResponse>() {
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
@@ -51,7 +57,7 @@ public class payment_service implements paymentContract.Model{
 
             @Override
             public void onFailure(Call<TokenResponse> call, Throwable t) {
-            t.printStackTrace();
+                t.printStackTrace();
                 try {
                     listener.onFailure("Network call failed: " + t.getMessage());
                 } catch (Exception e) {
@@ -63,15 +69,14 @@ public class payment_service implements paymentContract.Model{
 
     @Override
     public void initializePayment(paymentContract.Presenter.OnInitPaymentListener listener, String token, String vpiVersion, InitPaymentBody body) {
-        Call<InitPayementResponse> call=this.apiService.initPayment(token,vpiVersion,body);
+        Call<InitPayementResponse> call = this.apiService.initPayment(token, vpiVersion, body);
         call.enqueue(new Callback<InitPayementResponse>() {
             @Override
             public void onResponse(Call<InitPayementResponse> call, Response<InitPayementResponse> response) {
-                if(response.isSuccessful()){
-                    InitPayementResponse responseAPI=response.body();
+                if (response.isSuccessful()) {
+                    InitPayementResponse responseAPI = response.body();
                     listener.onInitPayment(responseAPI);
-                }
-                else{
+                } else {
                     try {
                         listener.onFailure(response.message());
                     } catch (Exception e) {
@@ -94,16 +99,15 @@ public class payment_service implements paymentContract.Model{
 
     @Override
     public void checkTransactionStatus(paymentContract.Presenter.OnTransactionStatusCheckedListener listener, String token, String vpiVersion, String paymentLink) {
-        String idValue= utilities.getIdFromLink(paymentLink);
-        Call<TransactionsStatusResponse> call=this.apiService.getTransactionsStatus(token,vpiVersion,idValue);
+        String idValue = utilities.getIdFromLink(paymentLink);
+        Call<TransactionsStatusResponse> call = this.apiService.getTransactionsStatus(token, vpiVersion, idValue);
         call.enqueue(new Callback<TransactionsStatusResponse>() {
             @Override
             public void onResponse(Call<TransactionsStatusResponse> call, Response<TransactionsStatusResponse> response) {
-                if(response.isSuccessful()){
-                    TransactionsStatusResponse responseAPI=response.body();
+                if (response.isSuccessful()) {
+                    TransactionsStatusResponse responseAPI = response.body();
                     listener.onTransactionStatusChecked(responseAPI);
-                }
-                else{
+                } else {
                     try {
                         listener.onFailure(response.message());
                     } catch (Exception e) {
@@ -115,7 +119,7 @@ public class payment_service implements paymentContract.Model{
             @Override
             public void onFailure(Call<TransactionsStatusResponse> call, Throwable t) {
                 t.printStackTrace();
-                  try {
+                try {
                     listener.onFailure(t.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
